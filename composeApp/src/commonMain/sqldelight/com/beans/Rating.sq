@@ -1,0 +1,22 @@
+CREATE TABLE Ratings (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    beanId INTEGER NOT NULL,
+    person TEXT NOT NULL,
+    rating INTEGER NOT NULL CHECK(rating >= 1 AND rating <= 10),
+    FOREIGN KEY (beanId) REFERENCES Beans(beanId) ON DELETE CASCADE
+);
+
+selectByBeanId:
+SELECT person, rating FROM Ratings WHERE beanId = ?;
+
+selectByPerson:
+SELECT beanId, rating FROM Ratings WHERE person = ?;
+
+insert:
+INSERT INTO Ratings (beanId, person, rating) VALUES (?, ?, ?);
+
+update:
+UPDATE Ratings SET rating = ? WHERE beanId = ? AND person = ?;
+
+deleteByBeanId:
+DELETE FROM Ratings WHERE beanId = ?;

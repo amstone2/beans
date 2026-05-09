@@ -1,0 +1,19 @@
+CREATE TABLE Notes (
+    noteId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    beanId INTEGER NOT NULL,
+    tag TEXT NOT NULL,
+    FOREIGN KEY (beanId) REFERENCES Notes(noteId) ON DELETE CASCADE,
+    UNIQUE(beanId, tag)
+);
+
+selectByBeanId:
+SELECT tag FROM Notes WHERE beanId = ?;
+
+insert:
+INSERT INTO Notes (beanId, tag) VALUES (?, ?);
+
+deleteByNoteId:
+DELETE FROM Notes WHERE noteId = ?;
+
+deleteByBeanId:
+DELETE FROM Notes WHERE beanId = ?;

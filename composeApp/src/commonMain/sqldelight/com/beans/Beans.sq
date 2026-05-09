@@ -1,0 +1,30 @@
+CREATE TABLE Beans (
+    beanId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    dateAdded TEXT NOT NULL,
+    roastedDate TEXT,
+    brand TEXT NOT NULL,
+    product TEXT NOT NULL,
+    roastLevel TEXT
+);
+
+selectAll:
+SELECT beanId, dateAdded, roastedDate, brand, product, roastLevel FROM Beans;
+
+selectById:
+SELECT beanId, dateAdded, roastedDate, brand, product, roastLevel FROM Beans WHERE beanId = ?;
+
+insert:
+INSERT INTO Beans (dateAdded, roastedDate, brand, product, roastLevel)
+VALUES (?, ?, ?, ?, ?);
+
+update:
+UPDATE Beans SET
+    dateAdded = ?,
+    roastedDate = ?,
+    brand = ?,
+    product = ?,
+    roastLevel = ?
+WHERE beanId = ?;
+
+delete:
+DELETE FROM Beans WHERE beanId = ?;
