@@ -4,10 +4,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.BasicAlertDialog
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,20 +19,31 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import beans.composeapp.generated.resources.Res
+import beans.composeapp.generated.resources.ic_add
 import org.beans.BeansAppDatabase
 import org.beans.db.BeansDataSource
+import org.jetbrains.compose.resources.painterResource
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddBeanDialogButton(database: BeansAppDatabase) {
     val openDialog = remember { mutableStateOf(false) }
 
-    Button(onClick = { openDialog.value = true }) { Text("Add Bean") }
+    FloatingActionButton(onClick = { openDialog.value = true }) {
+        Icon(painterResource(Res.drawable.ic_add), contentDescription = "Add bean")
+    }
 
     if (openDialog.value) {
-        BasicAlertDialog(onDismissRequest = { openDialog.value = false })
-        {
-            BeansForm(database)
+        Dialog(onDismissRequest = { openDialog.value = false }) {
+            Surface(
+                shape = MaterialTheme.shapes.large,
+                tonalElevation = 6.dp
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    BeansForm(database)
+                }
+            }
         }
     }
 }

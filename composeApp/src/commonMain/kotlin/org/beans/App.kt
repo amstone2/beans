@@ -8,15 +8,17 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import org.beans.ui.AddBeanDialogButton
+import org.beans.ui.BeansList
 
 @Composable
-fun App(database: BeansAppDatabase) {
+fun App(beansAppDatabase: BeansAppDatabase) {
     val colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
     MaterialTheme(colorScheme = colorScheme) {
         Scaffold(
-            floatingActionButton = { AddBeanDialogButton(database) },
-            floatingActionButtonPosition = FabPosition.End
-        )
-        { }
+            floatingActionButton = { AddBeanDialogButton(beansAppDatabase) },
+            floatingActionButtonPosition = FabPosition.EndOverlay
+        ) { innerPadding ->
+            BeansList(beansAppDatabase, innerPadding)
+        }
     }
 }
